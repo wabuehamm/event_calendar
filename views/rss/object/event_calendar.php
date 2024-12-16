@@ -42,7 +42,6 @@ if ($vars['entity']->long_description) {
 	<?php
 		}
 		if (
-			($vars['entity'] instanceof Locatable) &&
 			($vars['entity']->getLongitude()) &&
 			($vars['entity']->getLatitude())
 		) {

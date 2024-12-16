@@ -9,13 +9,13 @@ $event_guid = get_input('event_guid');
 $user = get_entity($user_guid);
 $event = get_entity($event_guid);
 
-if (elgg_instanceof($event, 'object', 'event_calendar')
-	&& elgg_instanceof($user, 'user')
+if ($event->subtype == 'event_calendar'
+	&& $user instanceof ElggUser
 	&& $event->canEdit()
-	&& check_entity_relationship($user_guid, 'event_calendar_request', $event_guid)) {
+	&& $user->hasRelationship($event_guid, 'event_calendar_request')) {
 		
 	if (event_calendar_add_personal_event($event_guid, $user_guid)) {
-		remove_entity_relationship($user_guid, 'event_calendar_request', $event_guid);
+		$user->removeRelationship($event_guid, 'event_calendar_request');
 		if ($user_guid != elgg_get_logged_in_user_guid()) {
 			$user_language = ($user->language) ? $user->language : (($site_language = elgg_get_config('language')) ? $site_language : 'en');
 			$subject = elgg_echo('event_calendar:add_users_notify:subject', [], $user_language);
@@ -26,10 +26,10 @@ if (elgg_instanceof($event, 'object', 'event_calendar')
 				'summary' => $subject
 			]);
 		}
-		system_message(elgg_echo('event_calendar:request_approved'));
+		elgg_register_success_message(elgg_echo('event_calendar:request_approved'));
 	}
 } else {
-	register_error(elgg_echo('event_calendar:review_requests:error:approve'));
+	elgg_register_error_message(elgg_echo('event_calendar:review_requests:error:approve'));
 }
 
-forward(REFERER);
+elgg_redirect_response();

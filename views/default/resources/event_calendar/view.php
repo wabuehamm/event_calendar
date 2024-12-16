@@ -10,13 +10,13 @@ $event = get_entity($event_guid);
 
 elgg_push_breadcrumb(elgg_echo('item:object:event_calendar'), 'event_calendar/list');
 
-if (!elgg_instanceof($event, 'object', 'event_calendar')) {
+if ($event->subtype != 'event_calendar') {
 	$content = elgg_echo('event_calendar:error_nosuchevent');
 	$title = elgg_echo('event_calendar:generic_error_title');
 } else {
 	$title = htmlspecialchars($event->title);
 	$event_container = get_entity($event->container_guid);
-	if (elgg_instanceof($event_container, 'group')) {
+	if ($event_container instanceof ElggGroup) {
 		if ($event_container->canEdit()) {
 			event_calendar_handle_menu($event_guid);
 		}

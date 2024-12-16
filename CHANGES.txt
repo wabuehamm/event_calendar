@@ -1,6 +1,12 @@
 Changelog
 =========
 
+3.0.0 (wabuehamm)
+-----------------
+
+- Migrated to be compatible with Elgg 6
+- Legacy tag searching was removed as metadata tagnames support was dropped with Elgg 4
+
 2.3.3 (iionly)
 --------------
 

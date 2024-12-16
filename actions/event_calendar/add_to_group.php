@@ -6,7 +6,7 @@ $event = get_entity($event_id);
 $group = get_entity($group_id);
 
 if ($group && $group->canEdit()) {
-	add_entity_relationship($event_id, "display_on_group", $group_id);
-	system_message(elgg_echo('event_calendar:add_to_group:success'));
+	$event->addRelationship($group_id, "display_on_group");
+	elgg_register_success_message(elgg_echo('event_calendar:add_to_group:success'));
 }
-forward($event->getUrl());
+elgg_redirect_response($event->getUrl());

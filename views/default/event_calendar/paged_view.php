@@ -1,6 +1,6 @@
 <?php
 
-elgg_require_js('event_calendar/event_calendar');
+elgg_import_esm('js/event_calendar/event_calendar');
 
 $nav = elgg_view('navigation/pagination', [
 	'offset' => $vars['offset'],

@@ -2,7 +2,7 @@
 
 require_once(elgg_get_plugins_path() . 'event_calendar/models/model.php');
 
-elgg_require_js('event_calendar/event_calendar');
+elgg_import_esm('js/event_calendar/event_calendar');
 elgg_register_rss_link();
 
 $start_date = elgg_extract('start_date', $vars, '');

@@ -8,7 +8,7 @@ if (!$num) {
 
 // Get the events
 $owner = elgg_get_page_owner_entity();
-if(elgg_instanceof($owner, 'group')) {
+if($owner instanceof ElggGroup) {
 	$one_day = time() - 60*60*24;
 	$options = [
 		'type' => 'object',
@@ -27,7 +27,7 @@ if(elgg_instanceof($owner, 'group')) {
 		'limit' => $num,
 	];
 
-	$events = elgg_get_entities_from_metadata($options);
+	$events = elgg_get_entities($options);
 }
 
 // If there are any events to view, view them
@@ -42,6 +42,7 @@ if (is_array($events) && sizeof($events) > 0) {
 }
 
 if (elgg_is_logged_in()) {
+	/** @var ElggGroup $group */
 	$group = get_entity(elgg_get_page_owner_guid());
 	if ($group->isMember(elgg_get_logged_in_user_entity())) {
 		echo elgg_view('output/url', [

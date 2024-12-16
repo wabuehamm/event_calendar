@@ -10,7 +10,7 @@ if (!$event_guid) {
 
 $event = get_entity($event_guid);
 
-if (!elgg_instanceof($event, 'object', 'event_calendar')) {
+if ($event->subtype != 'event_calendar') {
 	return true;
 }
 

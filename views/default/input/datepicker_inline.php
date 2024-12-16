@@ -11,7 +11,7 @@
  *
  */
 
-elgg_require_js('event_calendar/datepicker_inline');
+elgg_import_esm('js/event_calendar/datepicker_inline');
 
 if ($vars['group_guid']) {
 	$link_bit = elgg_get_site_url()."event_calendar/group/{$vars['group_guid']}/%s";
@@ -23,7 +23,7 @@ if ($_SERVER['QUERY_STRING']) {
 	$link_bit .= "?" . $_SERVER['QUERY_STRING'];
 }
 
-$user_language = get_language();
+$user_language = elgg_get_current_language();
 $user_language = ($user_language == false) ? 'en' : $user_language;
 $first_day_of_week = event_calendar_get_first_day_of_week($user_language);
 

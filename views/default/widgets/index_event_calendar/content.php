@@ -26,7 +26,7 @@ $options = [
 	'limit' => $num,
 ];
 
-$events = elgg_get_entities_from_metadata($options);
+$events = elgg_get_entities($options);
 
 // If there are any events to view, view them
 if (is_array($events) && sizeof($events) > 0) {

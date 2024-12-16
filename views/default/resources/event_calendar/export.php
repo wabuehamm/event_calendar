@@ -1,5 +1,7 @@
 <?php
 
+use Elgg\Exceptions\HttpException;
+
 require_once(elgg_get_plugins_path() . 'event_calendar/models/model.php');
 
 elgg_gatekeeper();
@@ -19,8 +21,8 @@ elgg_push_breadcrumb(elgg_echo('item:object:event_calendar'), "event_calendar/li
 if ($group_guid) {
 	$group = get_entity($group_guid);
 	// make sure group exists, has calendars enabled, and global group calendars are enabled
-	if (!elgg_instanceof($group, 'group') || $group->event_calendar_enable == 'no' || elgg_get_plugin_setting('group_calendar', 'event_calendar') == 'no') {
-		forward('', '404');
+	if (!$group instanceof ElggGroup || $group->event_calendar_enable == 'no' || elgg_get_plugin_setting('group_calendar', 'event_calendar') == 'no') {
+		throw new HttpException('', 404);
 	}
 
 	elgg_set_page_owner_guid($group->getGUID());

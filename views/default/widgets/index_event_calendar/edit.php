@@ -1,6 +1,6 @@
 <?php
 
-$count = sanitise_int($vars["entity"]->events_count, false);
+$count = intval($vars["entity"]->events_count);
 if(empty($count)){
 	$count = 4;
 }

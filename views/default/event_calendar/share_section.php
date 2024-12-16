@@ -16,7 +16,7 @@ if($event_calendar_hide_access == 'yes') {
 		$body .= elgg_view_field([
 			'#type' => 'hidden',
 			'name' => 'access_id',
-			'value' => get_default_access(),
+			'value' => elgg_get_default_access(),
 		]);
 	}
 } else {

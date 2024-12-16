@@ -6,7 +6,7 @@ require_once(elgg_get_plugins_path() . 'event_calendar/models/model.php');
 // adding or removing them
 
 // TODO: make this an optional feature, toggled off
-elgg_require_js('event_calendar/event_calendar');
+elgg_import_esm('js/event_calendar/event_calendar');
 
 $event_guid = elgg_extract('guid', $vars, '');
 
@@ -16,21 +16,21 @@ $offset = get_input('offset', 0);
 
 $event_calendar_add_users = elgg_get_plugin_setting('add_users', 'event_calendar');
 if ($event_calendar_add_users != 'yes') {
-	register_error(elgg_echo('event_calendar:feature_not_activated'));
-	forward();
+	elgg_register_error_message(elgg_echo('event_calendar:feature_not_activated'));
+	elgg_redirect_response();
 	exit;
 }
 
 elgg_push_breadcrumb(elgg_echo('item:object:event_calendar'), 'event_calendar/list');
 
-if (!elgg_instanceof($event, 'object', 'event_calendar')) {
+if ($event->subtype != 'event_calendar') {
 	$content = elgg_echo('event_calendar:error_nosuchevent');
 	$title = elgg_echo('event_calendar:generic_error_title');
 } else {
 	$title = elgg_echo('event_calendar:manage_users:title', [$event->title]);
 	$event_container = get_entity($event->container_guid);
 	if ($event_container->canEdit()) {
-		if (elgg_instanceof($event_container, 'group')) {
+		if ($event_container instanceof ElggGroup) {
 			elgg_set_page_owner_guid($event->container_guid);
 			elgg_push_breadcrumb($event_container->name, 'event_calendar/group/' . $event->container_guid);
 			if ($event_container->canEdit()) {

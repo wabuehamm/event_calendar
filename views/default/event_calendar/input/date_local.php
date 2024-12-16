@@ -26,6 +26,7 @@ if (isset($vars['class'])) {
 }
 
 $defaults = [
+	'type' => 'text',
 	'value' => '',
 	'disabled' => false,
 	'timestamp' => false,
@@ -53,5 +54,4 @@ if (is_numeric($vars['value'])) {
 	$vars['value'] = date('Y-m-d', $vars['value']);
 }
 
-$attributes = elgg_format_attributes($vars);
-echo "<input type=\"text\" $attributes />";
+print elgg_format_element("input", $vars);

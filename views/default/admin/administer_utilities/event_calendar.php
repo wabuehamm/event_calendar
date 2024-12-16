@@ -1,6 +1,6 @@
 <?php
 
-elgg_require_js('event_calendar/delete_past_events');
+elgg_import_esm('js/event_calendar/delete_past_events');
 
 $title = elgg_echo('event_calendar:administer:title');
 

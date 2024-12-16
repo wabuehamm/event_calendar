@@ -1,7 +1,7 @@
 <?php
 
 if (elgg_get_plugin_setting('ical_import_export', 'event_calendar') == "yes") {
-	$url = current_page_url();
+	$url = elgg_get_current_url();
 	if (substr_count($url, '?')) {
 		$url .= "&view=ical";
 	} else {

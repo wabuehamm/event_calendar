@@ -27,7 +27,7 @@ if ($event) {
 	if ($event_guid) {
 		$action = 'update';
 
-		system_message(elgg_echo('event_calendar:manage_event_response'));
+		elgg_register_success_message(elgg_echo('event_calendar:manage_event_response'));
 	} else {
 		$action = 'create';
 
@@ -36,7 +36,7 @@ if ($event) {
 			event_calendar_add_personal_event($event->guid, $user_guid);
 		}
 
-		system_message(elgg_echo('event_calendar:add_event_response'));
+		elgg_register_success_message(elgg_echo('event_calendar:add_event_response'));
 	}
 
 	elgg_create_river_item([
@@ -47,20 +47,20 @@ if ($event) {
 	]);
 
 	if ($event->schedule_type == 'poll') {
-		forward('event_poll/add/'.$event->guid);
+		elgg_redirect_response('event_poll/add/'.$event->guid);
 	}
 
-	forward($event->getURL());
+	elgg_redirect_response($event->getURL());
 } else {
 	// redisplay form with error message
-	register_error(elgg_echo('event_calendar:manage_event_error'));
+	elgg_register_error_message(elgg_echo('event_calendar:manage_event_error'));
 	if ($event_guid) {
-		forward('event_calendar/edit/'.$event_guid);
+		elgg_redirect_response('event_calendar/edit/'.$event_guid);
 	} else {
 		if ($group_guid) {
-			forward('event_calendar/add/'.$group_guid);
+			elgg_redirect_response('event_calendar/add/'.$group_guid);
 		} else {
-			forward('event_calendar/add/');
+			elgg_redirect_response('event_calendar/add/');
 		}
 	}
 }

@@ -28,15 +28,15 @@ switch ($filter) {
 		// see if we're exporting just a single event
 		$events = false;
 		$event = get_entity($filter);
-		if (elgg_instanceof($event, 'object', 'event_calendar')) {
+		if ($event->subtype == 'event_calendar') {
 			$events = [['event' => $event]];
 		}
 		break;
 }
 
 if (!$events) {
-	register_error(elgg_echo('event_calendar:no_events_found'));
-	forward(REFERER);
+	elgg_register_error_message(elgg_echo('event_calendar:no_events_found'));
+	elgg_redirect_response();
 }
 
 $events = event_calendar_flatten_event_structure($events);

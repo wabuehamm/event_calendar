@@ -63,4 +63,4 @@ if ($mode == 'month') {
 $body .= '<li'.$link_class.'><a href="'.sprintf($link_bit,'month').'">'.elgg_echo('event_calendar:month_label').'</a></li>';
 $body .= '</ul>';
 $body .= '</div><br clear="all"/>';
-echo elgg_view('page/components/module', [ type => 'aside', body => $body ]);
+echo elgg_view('page/components/module', [ 'type' => 'aside', 'body' => $body ]);

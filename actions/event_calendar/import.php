@@ -8,14 +8,14 @@ $import_timezone = get_input('timezone', date_default_timezone_get());
 
 // check if upload failed
 if (!empty($_FILES['ical_file']['name']) && $_FILES['ical_file']['error'] != 0) {
-	register_error(elgg_echo('event_calendar:file:cannotload'));
-	forward(REFERER);
+	elgg_register_error_message(elgg_echo('event_calendar:file:cannotload'));
+	elgg_redirect_response();
 }
 
 // must have a file if a new file upload
 if (empty($_FILES['ical_file']['name'])) {
-	register_error(elgg_echo('event_calendar:file:nofile'));
-	forward(REFERER);
+	elgg_register_error_message(elgg_echo('event_calendar:file:nofile'));
+	elgg_redirect_response();
 }
 
 $thumb = new ElggFile();
@@ -28,8 +28,8 @@ $thumb->close();
 $moved = move_uploaded_file($_FILES['ical_file']['tmp_name'], $thumb->getFilenameOnFilestore());
 
 if (!$moved) {
-	register_error(elgg_echo('event_calendar:file:cannotload'));
-	forward(REFERER);
+	elgg_register_error_message(elgg_echo('event_calendar:file:cannotload'));
+	elgg_redirect_response();
 }
 
 $path = pathinfo($thumb->getFilenameOnFilestore());
@@ -186,9 +186,9 @@ if ($error) {
 			$new_event->delete();
 		}
 	}
-	register_error(elgg_echo('event_calendar:error:failed'));
-	forward(REFERER);
+	elgg_register_error_message(elgg_echo('event_calendar:error:failed'));
+	elgg_redirect_response();
 }
 
-system_message(elgg_echo('event_calendar:add_event_response'));
-forward(REFERER);
+elgg_register_success_message(elgg_echo('event_calendar:add_event_response'));
+elgg_redirect_response();

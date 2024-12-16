@@ -1,6 +1,6 @@
 <?php
 
-elgg_require_js('event_calendar/event_calendar_fullcalendar');
+elgg_import_esm('js/event_calendar/event_calendar_fullcalendar');
 
 $timeformat = elgg_get_plugin_setting('timeformat', 'event_calendar') == 24 ? 'H(:mm)' : 'h(:mm)t';
 $startdate = date('n', strtotime($vars['start_date'])) - 1;

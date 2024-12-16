@@ -67,7 +67,7 @@ foreach($events as $e) {
 
 		// Allow other plugins to modify the data
 		$params = ['entity' => $event];
-		$event_item = elgg_trigger_plugin_hook('prepare', 'event_calendar:json', $params, $event_item);
+		$event_item = elgg_trigger_event_results('prepare', 'event_calendar:json', $params, $event_item);
 
 		$event_array[] = $event_item;
 	}

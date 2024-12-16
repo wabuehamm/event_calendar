@@ -1,6 +1,6 @@
 <?php
 
-elgg_require_js('event_calendar/event_calendar');
+elgg_require_css('js/event_calendar/event_calendar');
 require_once(elgg_get_plugins_path() . 'event_calendar/vendors/iCalcreator/iCalcreator.php');
 require_once(elgg_get_plugins_path() . 'event_calendar/models/model.php');
 
@@ -12,8 +12,8 @@ $region = elgg_extract('region', $vars, '-');
 $events = event_calendar_get_ical_events('list', 0, $start_date, $display_mode, $filter, $region);
 
 if (!$events) {
-	register_error(elgg_echo('event_calendar:no_events_found'));
-	forward(REFERER);
+	elgg_register_error_message(elgg_echo('event_calendar:no_events_found'));
+	elgg_redirect_response();
 }
 
 $events = event_calendar_flatten_event_structure($events);

@@ -2,7 +2,7 @@
 
 require_once(elgg_get_plugins_path() . 'event_calendar/models/model.php');
 
-elgg_require_js('event_calendar/event_calendar');
+elgg_import_esm('js/event_calendar/event_calendar');
 elgg_register_rss_link();
 
 $container_guid = elgg_extract('container_guid', $vars, 0);
@@ -19,7 +19,7 @@ set_input('ical_calendar_filter', $filter_mode == '' ? 'all' : $filter_mode);
 
 if (!$container_guid) {
 	elgg_gatekeeper();
-	elgg_group_gatekeeper();
+	elgg_entity_gatekeeper($container_guid, 'object', 'group');
 	$container_guid = elgg_get_page_owner_guid();
 }
 
@@ -27,7 +27,7 @@ elgg_push_breadcrumb(elgg_echo('item:object:event_calendar'), 'event_calendar/li
 
 $group = get_entity($container_guid);
 if (!event_calendar_activated_for_group($group)) {
-	forward();
+	elgg_redirect_response();
 }
 elgg_push_breadcrumb($group->name, 'event_calendar/group/' . $group->getGUID());
 elgg_set_page_owner_guid($container_guid);

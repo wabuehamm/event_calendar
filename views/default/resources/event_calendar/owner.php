@@ -2,11 +2,11 @@
 
 require_once(elgg_get_plugins_path() . 'event_calendar/models/model.php');
 
-elgg_require_js('event_calendar/event_calendar');
+elgg_import_esm('js/event_calendar/event_calendar');
 elgg_register_rss_link();
 
 $username = elgg_extract('username', $vars, '');
-$container_guid = get_user_by_username($username)->guid;
+$container_guid = elgg_get_user_by_username($username)->guid;
 $start_date = elgg_extract('start_date', $vars, '');
 $display_mode = elgg_extract('display_mode', $vars, '');
 $filter = elgg_extract('filter_mode', $vars, '');

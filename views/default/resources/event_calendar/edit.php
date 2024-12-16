@@ -2,7 +2,7 @@
 
 require_once(elgg_get_plugins_path() . 'event_calendar/models/model.php');
 
-elgg_require_js('event_calendar/event_calendar');
+elgg_import_esm('js/event_calendar/event_calendar');
 
 $page_type = elgg_extract('page_type', $vars);
 $guid = elgg_extract('guid', $vars, 0);
@@ -21,12 +21,12 @@ elgg_push_breadcrumb(elgg_echo('item:object:event_calendar'), 'event_calendar/li
 if ($page_type == 'edit') {
 	$title = elgg_echo('event_calendar:manage_event_title');
 	$event = get_entity((int)$guid);
-	if (elgg_instanceof($event, 'object', 'event_calendar') && $event->canEdit()) {
+	if ($event->subtype == 'event_calendar' && $event->canEdit()) {
 		$body_vars['event'] = $event;
 		$body_vars['form_data'] =  event_calendar_prepare_edit_form_vars($event, $page_type);
 
 		$event_container = get_entity($event->container_guid);
-		if (elgg_instanceof($event_container, 'group')) {
+		if ($event_container instanceof ElggGroup) {
 			elgg_push_breadcrumb($event_container->name, 'event_calendar/group/' . $event->container_guid);
 			$body_vars['group_guid'] = $event_container->guid;
 		} else {
@@ -46,7 +46,7 @@ if ($page_type == 'edit') {
 	if ($guid) {
 		// add to group
 		$group = get_entity($guid);
-		if (elgg_instanceof($group, 'group')) {
+		if ($group instanceof ElggGroup) {
 			$body_vars['group_guid'] = $guid;
 			elgg_push_breadcrumb($group->name, 'event_calendar/group/' . $guid);
 			elgg_push_breadcrumb(elgg_echo('event_calendar:add_event_title'));
