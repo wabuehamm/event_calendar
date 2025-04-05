@@ -19,7 +19,7 @@ if (!$delete_upper_limit) {
 $delete_repeating_events = get_input('delete_repeating_events');
 $delete_repeating_events = ($delete_repeating_events === 'true');
 
-elgg_call(ELGG_IGNORE_ACCESS & ELGG_SHOW_DISABLED_ENTITIES, function() use ($delete_upper_limit, $delete_repeating_events, $response) {
+elgg_call(ELGG_IGNORE_ACCESS & ELGG_SHOW_DISABLED_ENTITIES, function() use ($delete_upper_limit, $delete_repeating_events, &$response) {
 	$now = time();
 	$upper_limit = false;
 	switch ($delete_upper_limit) {

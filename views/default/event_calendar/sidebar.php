@@ -24,7 +24,7 @@ if (elgg_get_plugin_setting('ical_import_export', 'event_calendar') == "yes") {
 	);
 }
 
-if (elgg_extract('listing_format', $vars) === 'agenda') {
+if (elgg_extract('listing_format', $vars) !== 'paged') {
 	echo elgg_view('event_calendar/calendar', $vars);
 }
 

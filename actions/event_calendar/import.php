@@ -56,8 +56,7 @@ $event_calendar_type_display = elgg_get_plugin_setting('type_display', 'event_ca
 $event_calendar_more_required = elgg_get_plugin_setting('more_required', 'event_calendar');
 
 // for now, turn off the more_required setting during import
-elgg_set_plugin_setting('more_required', 'no', 'event_calendar');
-
+elgg_get_plugin_from_id('event_calendar')->setSetting('more_required', 'no');
 $created = []; // an array to hold all of the created events
 while ($vevent = $v->getComponent()) {
 	if ($vevent instanceof vevent) {
@@ -177,7 +176,7 @@ while ($vevent = $v->getComponent()) {
 	}
 }
 
-elgg_set_plugin_setting('more_required', $event_calendar_more_required, 'event_calendar');
+elgg_get_plugin_from_id('event_calendar')->setSetting('more_required', $event_calendar_more_required);
 
 if ($error) {
 	// there was an error, lets undo the imports that may have happened so far

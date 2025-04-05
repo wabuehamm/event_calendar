@@ -9,15 +9,14 @@ $event_guid = get_input('event_guid');
 $user = get_entity($user_guid);
 $event = get_entity($event_guid);
 
-if (elgg_instanceof($event, 'object', 'event_calendar')
-	&& elgg_instanceof($user, 'user')
+if ($event->subtype == 'event_calendar'
+	&& $user instanceof ElggUser
 	&& $event->canEdit()
-	&& check_entity_relationship($user_guid, 'event_calendar_request', $event_guid)) {
-		
-	remove_entity_relationship($user->guid, 'event_calendar_request', $event_guid);
-	system_message(elgg_echo('event_calendar:requestkilled'));
+	&& $user->hasRelationship($event_guid, 'event_calendar_request')) {
+	$event->removeRelationship($event_guid, 'event_calendar_request');
+	elgg_register_success_message(elgg_echo('event_calendar:requestkilled'));
 } else {
-	register_error(elgg_echo('event_calendar:review_requests:error:reject'));
+	elgg_register_error_message(elgg_echo('event_calendar:review_requests:error:reject'));
 }
 
-forward(REFERER);
+elgg_redirect_response();
